@@ -25,15 +25,15 @@ public class ArmstrongNumberProgram {
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a number: ");
-        int num = sc.nextInt();
+        int num = scanner.nextInt();
 
         if (isArmstrong(num))
             System.out.println(num + " is an Armstrong number.");
         else
             System.out.println(num + " is NOT an Armstrong number.");
 
-        sc.close();
+        scanner.close();
     }
 }

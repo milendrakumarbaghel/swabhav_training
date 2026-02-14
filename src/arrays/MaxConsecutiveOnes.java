@@ -2,32 +2,34 @@ package arrays;
 
 import java.util.Scanner;
 
-public class PeakElement {
+public class MaxConsecutiveOnes {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter size: ");
         int size = scanner.nextInt();
 
-        while (size <= 0) {
-            System.out.print("Please enter positive size: ");
-            size = scanner.nextInt();
-        }
-
         int[] arr = new int[size];
 
-        System.out.println("Enter elements:");
+        System.out.println("Enter binary elements (0 or 1):");
         for (int i = 0; i < size; i++) {
             arr[i] = scanner.nextInt();
         }
 
-        System.out.println("Peak elements:");
+        int count = 0;
+        int maxCount = 0;
 
         for (int i = 0; i < size; i++) {
-            if ((i == 0 || arr[i] > arr[i - 1]) &&
-                    (i == size - 1 || arr[i] > arr[i + 1])) {
-                System.out.println(arr[i]);
+            if (arr[i] == 1) {
+                count++;
+                if (count > maxCount) {
+                    maxCount = count;
+                }
+            } else {
+                count = 0;
             }
         }
+
+        System.out.println("Maximum consecutive 1s: " + maxCount);
     }
 }

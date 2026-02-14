@@ -1,21 +1,21 @@
-package arrays;
+package strings;
 
 import java.util.Scanner;
 
 public class ShiftCharacters {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter string: ");
-        String str = sc.nextLine();
+        String str = scanner.nextLine();
 
         while (str.isEmpty()) {
             System.out.print("Please enter non-empty string: ");
-            str = sc.nextLine();
+            str = scanner.nextLine();
         }
 
-        System.out.print("Enter shift value: ");
-        int shift = sc.nextInt();
+        System.out.print("Enter shift value (Integer): ");
+        int shift = scanner.nextInt();
 
         String result = "";
 
