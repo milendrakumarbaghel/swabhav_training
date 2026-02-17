@@ -29,13 +29,17 @@ public class InsuranceRiskPortfolioAnalyzer {
             riskScores[i] = scanner.nextInt();
         }
 
+        //1
         String[] riskCategory = classifyCustomers(ages, riskScores);
 
+        //2
         countCustomersInEachCategory(riskCategory);
 
+        //3
         double averageRisk = calculateAverageRisk(riskScores);
         System.out.println("Average risk score is: " + averageRisk);
 
+        //4
         int highestRiskIndex = findHighestRiskCustomerIndex(riskScores);
         System.out.println("Index of highest risk customer: " + highestRiskIndex);
 

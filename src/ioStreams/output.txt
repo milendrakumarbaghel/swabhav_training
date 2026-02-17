@@ -1,0 +1,3 @@
+Hello Java Character Stream!Hello Buffered Writer
+Second lineHello Buffered Writer
+Second line

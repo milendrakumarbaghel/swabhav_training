@@ -8,6 +8,11 @@ public class ElectricityUsagePatternDetector {
         int n = 30;
         int[] usage = new int[n];
 
+//        int[] usage = {
+//                120, 450, 520, 610, 700, 300, 90, 80, 150, 480, 510, 530, 550, 200, 340, 600, 620, 100, 95, 85, 410,
+//                420, 430, 510, 300, 250, 700, 710, 720
+//        };
+
         System.out.println("Enter electricity usage for 30 days:");
         for (int i = 0; i < n; i++) {
             usage[i] = scanner.nextInt();

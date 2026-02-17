@@ -17,6 +17,11 @@ public class FraudTransactionDetector {
 
         double[] transactions = new double[n];
 
+//        double[] transactions = {
+//                25000, 60000, 70000, 15000, 52000,
+//                30000, 80000, 10000, 45000, 90000
+//        };
+
         System.out.println("Enter transaction amounts:");
         for (int i = 0; i < n; i++) {
             transactions[i] = scanner.nextDouble();
