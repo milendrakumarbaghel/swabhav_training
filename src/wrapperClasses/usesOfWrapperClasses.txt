@@ -1,0 +1,21 @@
+Where Wrapper Classes Are Used
+
+1. Collections Framework -> ArrayList<Integer> list = new ArrayList<>();
+2. Generic               -> public class Box<T> { }
+                            Box<Integer> obj = new Box<>();
+3. Null Values           -> primitive cannot hold null.
+                            int a = null;        // ❌
+                            Integer b = null;    // ✅
+
+4. Important in:
+	•	Database mapping (JPA/Hibernate)
+	•	JSON mapping
+	•	Optional fields
+
+5. Why not int in spring boot application?
+   -Because:
+	•	Database column may contain NULL
+	•	Primitive cannot store null
+
+6. Why is Integer immutable?
+   - Because wrapper classes are immutable (like String).
