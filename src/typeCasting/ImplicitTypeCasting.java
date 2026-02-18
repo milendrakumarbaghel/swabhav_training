@@ -2,7 +2,6 @@ package typeCasting;
 
 public class ImplicitTypeCasting {
     public static void main(String[] args) {
-
 //        Implicit (Widening)
 //        Smaller → Bigger type
         int a = 10;
