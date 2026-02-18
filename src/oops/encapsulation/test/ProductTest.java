@@ -8,17 +8,28 @@ public class ProductTest {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Product Name: ");
-        String name = scanner.nextLine();
+        String productName = scanner.nextLine();
+
+        while(productName.isBlank()) {
+            System.out.println("Product name can't be null, please enter valid product name: ");
+            productName = scanner.nextLine();
+        }
 
         System.out.print("Enter Product Price: ");
         double price = scanner.nextDouble();
 
+        while(price <= 0) {
+            System.out.println("Product price should be greater than zero, please provide again: ");
+            price = scanner.nextInt();
+        }
+
         System.out.print("Enter Initial Stock: ");
         int stock = scanner.nextInt();
-        Product product = new Product(name, price, stock);
+        Product product = new Product(productName, price, stock);
         int choice;
 
         do {
+            System.out.println("Press: ,");
             System.out.println("1. Update Price");
             System.out.println("2. Increase Stock");
             System.out.println("3. Reduce Stock");

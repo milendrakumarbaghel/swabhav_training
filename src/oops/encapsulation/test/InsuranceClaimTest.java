@@ -10,14 +10,25 @@ public class InsuranceClaimTest {
         System.out.print("Enter Policy Number: ");
         String policyNumber = scanner.nextLine();
 
+        while(policyNumber.isBlank()) {
+            System.out.println("Policy number can't be null, please enter valid policy number: ");
+            policyNumber = scanner.nextLine();
+        }
+
         System.out.print("Enter Claim Amount: ");
         double claimAmount = scanner.nextDouble();
+
+        while(claimAmount <= 0) {
+            System.out.println("Claim amount can't be less than zero, please enter valid claim amount: ");
+            claimAmount = scanner.nextInt();
+        }
 
         InsuranceClaim claim = new InsuranceClaim(policyNumber, claimAmount);
         System.out.println("Current Status: " + claim.getClaimStatus());
         int choice;
 
         do {
+            System.out.println("Press: ,");
             System.out.println("1. Approve Claim");
             System.out.println("2. Reject Claim");
             System.out.println("3. Settle Claim");

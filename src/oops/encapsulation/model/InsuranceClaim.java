@@ -13,17 +13,18 @@ public class InsuranceClaim {
     private ClaimStatus claimStatus;
 
     public InsuranceClaim(String policyNumber, double claimAmount) {
-        if (policyNumber == null) {
+        this.claimId = UUID.randomUUID().toString();
+
+        if (policyNumber.isBlank()) {
             System.out.println("Policy number required");
         }
+        this.policyNumber = policyNumber;
 
         if (claimAmount <= 0) {
             System.out.println("Claim amount must be positive");
         }
-
-        this.claimId = UUID.randomUUID().toString();;
-        this.policyNumber = policyNumber;
         this.claimAmount = claimAmount;
+
         this.claimStatus = ClaimStatus.Filed;
     }
 
@@ -45,10 +46,13 @@ public class InsuranceClaim {
 
         if (approvedAmount <= 0 || approvedAmount > claimAmount) {
             System.out.println("Invalid approved amount");
+            return;
         }
 
         this.approvedAmount = approvedAmount;
         this.claimStatus = ClaimStatus.Approved;
+
+        System.out.println("Claim Approved");
     }
 
     public void rejectClaim() {
@@ -64,6 +68,8 @@ public class InsuranceClaim {
         }
 
         this.claimStatus = ClaimStatus.Rejected;
+
+        System.out.println("Claim Rejected");
     }
 
     public void settleClaim() {
@@ -79,5 +85,7 @@ public class InsuranceClaim {
         }
 
         this.claimStatus = ClaimStatus.Settled;
+
+        System.out.println("Claim Settled");
     }
 }

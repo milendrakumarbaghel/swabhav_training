@@ -8,19 +8,19 @@ public class BankAccount {
     private double balance;
 
     public BankAccount(String accountHolderName, double firstDeposit) {
-        if(accountHolderName != null) {
-            this.accountHolderName = accountHolderName;
+        this.accountNumber = UUID.randomUUID().toString();
+
+        if(accountHolderName.isBlank()) {
+            System.out.println("Name should not be empty");
+            return;
         }
+        this.accountHolderName = accountHolderName;
 
-        if(firstDeposit != 0) {
-            this.balance = firstDeposit;
+        if(firstDeposit < 0) {
+            System.out.println("Minimum deposit should be greater than equals to zero");
         }
+        this.balance = firstDeposit;
 
-        this.accountNumber = generateAccountNumber();
-    }
-
-    private String generateAccountNumber() {
-        return UUID.randomUUID().toString();
     }
 
     public double getBalance()  {

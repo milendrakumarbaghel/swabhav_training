@@ -10,8 +10,18 @@ public class BankAccountTest {
         System.out.print("Enter account holder name: ");
         String name = scanner.nextLine();
 
+        while(name.isBlank()) {
+            System.out.println("Name can't be null, please enter valid name: ");
+            name = scanner.nextLine();
+        }
+
         System.out.print("Enter initial balance: ");
         double initialBalance = scanner.nextDouble();
+
+        while(initialBalance < 0) {
+            System.out.println("Initial balance can't be zero, please enter valid initial balance: ");
+            initialBalance = scanner.nextInt();
+        }
 
         BankAccount account = new BankAccount(name, initialBalance);
 
@@ -23,7 +33,7 @@ public class BankAccountTest {
             System.out.println("2. Withdraw");
             System.out.println("3. Check Balance");
             System.out.println("4. Exit");
-            System.out.print("Enter your choice: ");
+            System.out.println("Enter your choice: ");
             choice = scanner.nextInt();
 
             switch (choice) {
