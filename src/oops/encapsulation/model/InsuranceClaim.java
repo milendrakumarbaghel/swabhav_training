@@ -1,14 +1,14 @@
 package oops.encapsulation.model;
 
 import java.util.UUID;
+enum ClaimStatus {
+    Filed, Approved, Rejected, Settled
+};
 
 public class InsuranceClaim {
     private final String claimId;
     private final String  policyNumber;
     private final double claimAmount;
-
-    public enum ClaimStatus {Filed, Approved, Rejected, Settled};
-
     private double approvedAmount;
     private ClaimStatus claimStatus;
 
