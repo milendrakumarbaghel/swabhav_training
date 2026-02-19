@@ -28,7 +28,7 @@ public class InsuranceClaimTest {
         int choice;
 
         do {
-            System.out.println("Press: ,");
+            System.out.println("Press: ");
             System.out.println("1. Approve Claim");
             System.out.println("2. Reject Claim");
             System.out.println("3. Settle Claim");
