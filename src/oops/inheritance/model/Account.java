@@ -17,12 +17,12 @@ public class Account {
         this.accountHolderName = accountHolderName;
 
         if(balance<0) {
-            System.out.println("Balance should be greater or eaual to zero");
+            System.out.println("Balance should be greater or equal to zero");
             return;
         }
         this.balance  = balance;
 
-        System.out.println("Account Created Successfully");
+        System.out.println("Account created successfully");
         System.out.println("Account details are: ");
         System.out.println("Account number is: " + accountNumber);
         System.out.println("Account holder name is: " + accountHolderName);

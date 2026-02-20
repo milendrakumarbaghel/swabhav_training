@@ -22,7 +22,9 @@ public class SavingsAccount extends Account {
             return;
         }
 
-        super.withdraw(amount);
-        System.out.println("withdraw Successful");
+//        super.withdraw(amount);
+        balance -= amount;
+        System.out.println("withdraw successful");
     }
+
 }

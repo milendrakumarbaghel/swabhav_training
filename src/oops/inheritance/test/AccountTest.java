@@ -16,14 +16,6 @@ public class AccountTest {
         int type = scanner.nextInt();
         scanner.nextLine();
 
-//        System.out.print("Enter Account Number: ");
-//        String accountNumber = scanner.nextLine();
-//
-//        while (accountNumber.isBlank()) {
-//            System.out.print("Account number cannot be blank. Enter again: ");
-//            accountNumber = scanner.nextLine();
-//        }
-
         System.out.print("Enter Account Holder's Name: ");
         String holderName = scanner.nextLine();
 
@@ -76,9 +68,8 @@ public class AccountTest {
             System.out.println("\n1. Deposit");
             System.out.println("2. Withdraw");
             System.out.println("3. Display Details");
-            System.out.println("4. Get Balance");
-            System.out.println("5. Exit");
-            System.out.print("Enter your choice: ");
+            System.out.println("4. Exit");
+        System.out.print("Enter your choice: ");
 
             choice = scanner.nextInt();
 
@@ -124,10 +115,6 @@ public class AccountTest {
                     break;
 
                 case 4:
-                    System.out.println("Your account balance is :" + (type == 1  ? savings.getBalance() : current.getBalance()) );
-                    break;
-
-                case 5:
                     System.out.println("Exiting Banking System...");
                     break;
 

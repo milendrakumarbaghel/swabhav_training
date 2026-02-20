@@ -25,8 +25,8 @@ public class CurrentAccount extends Account {
             return;
         }
 
-        balance  -= amount;
-
-        System.out.println("withdraw Successful");
+        balance -= amount;
+//        super.withdraw(amount);
+        System.out.println("withdraw successful");
     }
 }
