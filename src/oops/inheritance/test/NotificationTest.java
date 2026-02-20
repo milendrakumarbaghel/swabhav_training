@@ -8,8 +8,7 @@ import oops.inheritance.model.SMSNotification;
 import java.util.Scanner;
 
 public class NotificationTest {
-    static void main(String[] args) {
-
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int choice;
 
@@ -31,7 +30,7 @@ public class NotificationTest {
 
 
             if (choice >= 1 && choice <= 3) {
-                System.out.print("Enter Recipient: ");
+                System.out.print("Enter recipient name: ");
                 String recipient = scanner.nextLine();
 
                 while (!isValidText(recipient)) {
@@ -68,6 +67,10 @@ public class NotificationTest {
     }
 
     public static boolean isValidText(String text) {
-        return text != null && !text.trim().isEmpty();
+        if(text.isBlank()) return false;
+        text = text.trim();
+
+        if(text.isEmpty()) return false;
+        return text.matches("[a-zA-Z ]+");
     }
 }
