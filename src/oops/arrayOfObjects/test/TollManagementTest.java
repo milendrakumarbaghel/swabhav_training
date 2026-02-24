@@ -36,13 +36,13 @@ public class TollManagementTest {
                 type = readValidInt(scanner);
             }
 
-            scanner.nextLine(); // clear buffer
+            scanner.nextLine();
 
-            System.out.print("Enter Vehicle Number: ");
+            System.out.print("Enter Vehicle Number (eg. mp22xy2020): ");
             String vehicleNumber = scanner.nextLine();
 
             while (!isValidVehicleNumber(vehicleNumber)) {
-                System.out.print("Invalid Vehicle Number. Enter again: ");
+                System.out.print("Invalid Vehicle Number. Enter again (eg. mp22xy2020): ");
                 vehicleNumber = scanner.nextLine();
             }
 

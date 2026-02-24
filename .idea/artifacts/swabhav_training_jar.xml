@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="swabhav_training:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/swabhav_training_jar</output-path>
+    <root id="archive" name="swabhav_training.jar">
+      <element id="module-output" name="swabhav_training" />
+    </root>
+  </artifact>
+</component>
