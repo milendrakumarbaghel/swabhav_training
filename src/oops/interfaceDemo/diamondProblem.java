@@ -5,7 +5,7 @@ interface A {
         System.out.println("A");
     }
 
-//    void display();
+    void display();
 }
 
 interface B {
@@ -13,25 +13,24 @@ interface B {
         System.out.println("B");
     }
 
-//    void display();
+    void display();
 }
 
 class C implements A, B {
-//    void display() {
-//        System.out.println("display method called");
-//    }
+
+    public void display() {
+        System.out.println("display method called");
+    }
 
     public void show() {
-        A.super.show();  // Must resolve conflict
+        A.super.show();  // resolving conflict (Multiple Interface Conflict)
     }
 }
 
 public class diamondProblem {
-    static void main(String[] args) {
+    public static void main(String[] args) {
         C c = new C();
         c.show();
-
-//        c.display();
+        c.display();
     }
 }
-
