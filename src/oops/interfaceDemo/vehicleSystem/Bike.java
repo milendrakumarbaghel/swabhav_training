@@ -11,7 +11,7 @@ public class Bike implements VehicleControl {
             System.out.println("Bike already running.");
         } else {
             isStarted = true;
-            System.out.println("Bike started with kick/self start.");
+            System.out.println("Bike started.");
         }
     }
 

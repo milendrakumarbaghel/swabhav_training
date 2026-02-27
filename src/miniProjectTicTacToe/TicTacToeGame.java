@@ -19,12 +19,10 @@ public class TicTacToeGame {
 
         int choice = scanner.nextInt();
 
-        if (choice == 1) {
-            playHumanVsHuman();
-        } else if (choice == 2) {
-            playHumanVsComputer();
-        } else {
-            System.out.println("Invalid choice!");
+        switch (choice) {
+            case 1 -> playHumanVsHuman();
+            case 2 -> playHumanVsComputer();
+            default -> System.out.println("Invalid choice!");
         }
     }
 
@@ -133,9 +131,7 @@ public class TicTacToeGame {
     }
 
     public static boolean isValidMove(int row, int col) {
-        return row >= 0 && row < 3 &&
-                col >= 0 && col < 3 &&
-                board[row][col] == ' ';
+        return row >= 0 && row < 3 && col >= 0 && col < 3 && board[row][col] == ' ';
     }
 
     public static void switchPlayer() {
@@ -144,14 +140,10 @@ public class TicTacToeGame {
 
     public static boolean checkWinner() {
         for (int i = 0; i < 3; i++) {
-            if (board[i][0] == currentPlayer &&
-                    board[i][1] == currentPlayer &&
-                    board[i][2] == currentPlayer)
+            if (board[i][0] == currentPlayer && board[i][1] == currentPlayer && board[i][2] == currentPlayer)
                 return true;
 
-            if (board[0][i] == currentPlayer &&
-                    board[1][i] == currentPlayer &&
-                    board[2][i] == currentPlayer)
+            if (board[0][i] == currentPlayer && board[1][i] == currentPlayer && board[2][i] == currentPlayer)
                 return true;
         }
 

@@ -11,7 +11,7 @@ public class Truck implements VehicleControl {
             System.out.println("Truck already running.");
         } else {
             isStarted = true;
-            System.out.println("Truck started with heavy-duty ignition.");
+            System.out.println("Truck started.");
         }
     }
 

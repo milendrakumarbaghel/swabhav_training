@@ -11,7 +11,7 @@ public class Car implements VehicleControl {
             System.out.println("Car is already started.");
         } else {
             isStarted = true;
-            System.out.println("Car started with push-button ignition.");
+            System.out.println("Car started.");
         }
     }
 
