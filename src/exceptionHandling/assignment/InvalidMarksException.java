@@ -1,6 +1,6 @@
 package exceptionHandling.assignment;
 
-public class InvalidMarksException extends RuntimeException {
+public class InvalidMarksException extends Exception {
     public InvalidMarksException(String message) {
         super(message);
     }
