@@ -1,4 +1,4 @@
-package miniProjectTicTacToe;
+package tictactoe;
 
 import java.util.Random;
 import java.util.Scanner;
