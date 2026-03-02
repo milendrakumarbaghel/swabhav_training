@@ -1,5 +1,6 @@
 package tictactoe;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -18,10 +19,14 @@ public class TicTacToe {
     }
 
     private void initializeBoard() {
-        for(int i=0; i<3; i++) {
-            for(int j=0; j<3; j++) {
-                board[i][j] = ' ';
-            }
+//        for(int i=0; i<3; i++) {
+//            for(int j=0; j<3; j++) {
+//                board[i][j] = ' ';
+//            }
+//        }
+
+        for (char[] row : board) {
+            Arrays.fill(row, ' ');
         }
     }
 
@@ -29,7 +34,14 @@ public class TicTacToe {
         for(int i=0; i<3; i++) {
             System.out.print("| ");
             for(int j=0; j<3; j++) {
-                System.out.print(board[i][j] + " | ");
+
+                if(board[i][j] == ' ') {
+                    System.out.print(i + "," + j + " | ");
+                } else {
+                    System.out.print(board[i][j] + "   | ");
+                }
+//                System.out.print(board[i][j] + " | ");
+
             }
             System.out.println();
         }
