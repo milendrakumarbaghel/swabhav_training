@@ -18,12 +18,12 @@ public class Board {
         }
     }
 
-    public boolean placeMark(int row, int col, Mark mark) {
-        if (isValidMove(row, col)) {
-            board[row][col] = mark;
-            return true;
+    public void placeMark(int row, int col, Mark mark) {
+        if (!isValidMove(row, col)) {
+            throw new InvalidMoveException("Invalid move at (" + row + ", " + col + ")");
         }
-        return false;
+
+        board[row][col] = mark;
     }
 
     public boolean isValidMove(int row, int col) {

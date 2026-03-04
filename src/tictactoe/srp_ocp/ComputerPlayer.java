@@ -15,10 +15,16 @@ public class ComputerPlayer implements Player {
         int size = board.getSize();
 
         while (true) {
-            int row = random.nextInt(size);
-            int col = random.nextInt(size);
+            try {
+                int row = random.nextInt(size);
+                int col = random.nextInt(size);
 
-            if (board.placeMark(row, col, mark)) break;
+                board.placeMark(row, col, mark);
+            } catch (InvalidMoveException | InvalidInputException e) {
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 

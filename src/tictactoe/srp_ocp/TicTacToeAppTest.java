@@ -13,7 +13,14 @@ public class TicTacToeAppTest {
             System.out.println("3. Exit");
             System.out.print("Choose option: ");
 
-            int choice = getValidChoice(scanner);
+//            int choice = getValidChoice(scanner);
+            int choice;
+            try {
+                choice = readMenuChoice(scanner);
+            } catch (InvalidInputException e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
 
             if (choice == 3) {
                 System.out.println("Exiting game");
@@ -21,7 +28,17 @@ public class TicTacToeAppTest {
             }
 
             System.out.print("Enter board size (e.g., 3): ");
-            int size = isValidNumber(scanner);
+//            int size = isValidNumber(scanner);
+            int size;
+
+            while (true) {
+                try {
+                    size = readBoardSize(scanner);
+                    break;
+                } catch (InvalidInputException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
 
             Board board = new Board(size);
 
@@ -83,5 +100,41 @@ public class TicTacToeAppTest {
 
             System.out.println("Invalid choice, Enter number greater than zero");
         }
+    }
+
+    private static int readMenuChoice(Scanner scanner) {
+        String input = scanner.nextLine();
+
+        int choice;
+
+        try {
+            choice = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException("Please enter a valid number.");
+        }
+
+        if (choice < 1 || choice > 3) {
+            throw new InvalidInputException("Menu choice must be 1, 2, or 3.");
+        }
+
+        return choice;
+    }
+
+    private static int readBoardSize(Scanner scanner) {
+        String input = scanner.nextLine();
+
+        int size;
+
+        try {
+            size = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException("Board size must be a number.");
+        }
+
+        if (size <= 0) {
+            throw new InvalidInputException("Board size must be greater than 0.");
+        }
+
+        return size;
     }
 }
