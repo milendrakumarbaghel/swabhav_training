@@ -1,4 +1,4 @@
-package tictactoe.srp_ocp;
+package tictactoe.srp_ocp_refactor;
 
 public class Game {
     private final Board board;
@@ -16,17 +16,23 @@ public class Game {
     public void play() {
         while (true) {
             board.printBoard();
+            if(currentPlayer instanceof HumanPlayer) System.out.println("\nHuman Player " + currentPlayer.getMark() + "'s turn->");
+            else System.out.println("\nComputer Player " + currentPlayer.getMark() + "'s turn->");
+
             currentPlayer.makeMove(board);
 
             if (checkWinner()) {
                 board.printBoard();
-                System.out.println("Player " + currentPlayer.getMark() + " won the game");
+                if(currentPlayer instanceof HumanPlayer)
+                    System.out.println("\nHuman Player " + currentPlayer.getMark() + " won the game");
+                else
+                    System.out.println("\nComputer Player" + currentPlayer.getMark() + " won the game");
                 break;
             }
 
             if (board.isBoardFull()) {
                 board.printBoard();
-                System.out.println("Game draw.");
+                System.out.println("Game draw");
                 break;
             }
 

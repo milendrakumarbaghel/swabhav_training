@@ -1,4 +1,4 @@
-package tictactoe.srp_ocp;
+package tictactoe.srp_ocp_refactor;
 
 import java.util.Arrays;
 
@@ -50,17 +50,31 @@ public class Board {
     }
 
     public void printBoard() {
-        for(int i=0; i<size; i++) {
-            System.out.print("|  ");
-            for(int j = 0; j<size; j++) {
-                if(board[i][j] == Mark.EMPTY) {
-                    System.out.print(i + "," + j + "  |  ");
+        int cellNumber = 1;
+
+        for (int i = 0; i < size; i++) {
+            System.out.print("|");
+
+            for (int j = 0; j < size; j++) {
+
+                if (board[i][j] == Mark.EMPTY) {
+                    System.out.printf("%2d |", cellNumber);
                 } else {
-                    System.out.print(board[i][j] + "    |  ");
+                    System.out.printf(" %s |", board[i][j]);
                 }
+
+                cellNumber++;
             }
+
             System.out.println();
-            System.out.println();
+
+            if (i < size - 1) {
+                for (int k = 0; k < size; k++) {
+                    System.out.print("-----");
+//                    System.out.print("____");
+                }
+                System.out.println();
+            }
         }
     }
 }

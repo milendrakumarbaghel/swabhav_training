@@ -1,4 +1,4 @@
-package tictactoe.srp_ocp;
+package tictactoe.srp_ocp_refactor;
 
 public interface Player {
     void makeMove(Board board);

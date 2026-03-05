@@ -1,9 +1,9 @@
-package tictactoe.srp_ocp;
+package tictactoe.srp_ocp_refactor;
 
 import java.util.Scanner;
 
-public class TicTacToeAppTest {
-    static void main(String[] args) {
+public class StartGame {
+    public void start() {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {

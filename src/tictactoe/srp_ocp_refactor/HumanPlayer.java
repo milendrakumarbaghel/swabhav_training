@@ -1,6 +1,4 @@
-package tictactoe.srp_ocp;
-
-import exceptionHandling.assignment.InvalidMarksException;
+package tictactoe.srp_ocp_refactor;
 
 import java.util.Scanner;
 
@@ -18,15 +16,20 @@ public class HumanPlayer implements Player {
         while (true) {
             try {
                 int size = board.getSize();
-                System.out.print("Enter row: ");
+//                System.out.print("Enter row: ");
 //                int row = isValidRowCol(size);
-                int row = readInt();
-                System.out.print("Enter col: ");
+//                int row = readInt();
+//                System.out.print("Enter col: ");
 //                int col = isValidRowCol(size);
-                int col = readInt();
+//                int col = readInt();
 
+                System.out.println("Enter cell: ");
+                int cell= readInt();
 
-                board.placeMark(row, col, mark);
+                int[] position = getPosition(cell, size);
+
+                board.placeMark(position[0], position[1], mark);
+                break;
             } catch (InvalidMoveException | InvalidInputException e) {
                 System.out.println(e.getMessage());
             } catch (Exception e) {
@@ -65,7 +68,14 @@ public class HumanPlayer implements Player {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new InvalidInputException("Please enter a valid number.");
+            throw new InvalidInputException("Please enter a valid Cell.");
         }
+    }
+
+    public int[] getPosition(int cell, int size) {
+        int row = (cell - 1) / size;
+        int col = (cell - 1) % size;
+
+        return new int[]{row, col};
     }
 }

@@ -1,4 +1,4 @@
-package tictactoe.srp_ocp;
+package tictactoe.srp_ocp_refactor;
 
 import java.util.Random;
 
@@ -20,6 +20,7 @@ public class ComputerPlayer implements Player {
                 int col = random.nextInt(size);
 
                 board.placeMark(row, col, mark);
+                break;
             } catch (InvalidMoveException | InvalidInputException e) {
                 System.out.println(e.getMessage());
             } catch (Exception e) {

@@ -1,4 +1,4 @@
-package tictactoe.srp_ocp;
+package tictactoe.srp_ocp_refactor;
 
 public class InvalidInputException extends RuntimeException {
     public InvalidInputException(String message) {
