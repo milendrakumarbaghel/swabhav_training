@@ -2,21 +2,21 @@ package wrapperClasses;
 
 public class IntegerWrapperDemo {
     public static void main(String[] args) {
-        String str1 = "123";
-        int num1 = Integer.parseInt(str1);   // returns primitive int
-        System.out.println("Using parseInt(): " + num1);
-
-        String str2 = "469";
-        Integer num2 = Integer.valueOf(str2);  // returns Integer object
-        System.out.println("Using valueOf(): " + num2);
-
-        System.out.println("Maximum Integer Value: " + Integer.MAX_VALUE);
-
-        System.out.println("Minimum Integer Value: " + Integer.MIN_VALUE);
-
-        // Difference between parseInt and valueOf
-        System.out.println("Type of num1 (parseInt) is primitive int");
-        System.out.println("Type of num2 (valueOf) is Integer object");
+//        String str1 = "123";
+//        int num1 = Integer.parseInt(str1);   // returns primitive int
+//        System.out.println("Using parseInt(): " + num1);
+//
+//        String str2 = "469";
+//        Integer num2 = Integer.valueOf(str2);  // returns Integer object
+//        System.out.println("Using valueOf(): " + num2);
+//
+//        System.out.println("Maximum Integer Value: " + Integer.MAX_VALUE);
+//
+//        System.out.println("Minimum Integer Value: " + Integer.MIN_VALUE);
+//
+//        // Difference between parseInt and valueOf
+//        System.out.println("Type of num1 (parseInt) is primitive int");
+//        System.out.println("Type of num2 (valueOf) is Integer object");
 
         Integer a = 100;
         Integer b = 100;
@@ -28,14 +28,22 @@ public class IntegerWrapperDemo {
         Integer d = 200;
 
         System.out.println(c == d);  // false (Note: Outside cache range & Two different objects created)
-
-        //Memory Behaviour
-
-        int x = 10;
-        // Stored directly in stack
-
-        Integer y = 10;
+//
+//        //Memory Behaviour
+//
+//        int x = 10;
+//        // Stored directly in stack
+//
+//        Integer y = 10;
         // Reference in stack
         // Object in heap
+
+        int[][] test = new int[3][3];
+        //inner array - tbd
+        //outer array - tbd
+
+//        0,0 | 0,1 | 0,2
+//        1,0 | 1,1 | 1,2
+//        2,0 | 2,1 | 2,2
     }
 }

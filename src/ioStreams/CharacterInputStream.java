@@ -6,7 +6,7 @@ import java.io.IOException;
 public class CharacterInputStream {
     public static void main(String[] args) {
         try {
-            FileReader fr = new FileReader("src/ioStreams/test.txt");
+            FileReader fr = new FileReader("src/ioStreams/input.txt");
 
             int data;
             while ((data = fr.read()) != -1) {

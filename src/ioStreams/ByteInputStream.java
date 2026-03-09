@@ -6,7 +6,7 @@ import java.io.IOException;
 public class ByteInputStream {
     public static void main(String[] args) {
         try {
-            FileInputStream fis = new FileInputStream("src/ioStreams/test.txt");
+            FileInputStream fis = new FileInputStream("src/ioStreams/input.txt");
 
             int data;
             while ((data = fis.read()) != -1) {

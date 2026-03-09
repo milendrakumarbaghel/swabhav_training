@@ -1,0 +1,13 @@
+Byte Streams are used to handle binary data (images, videos, PDFs, etc.) and also text files at the byte level.
+
+
+
+Main classes:
+	•	FileInputStream
+	•	FileOutputStreamByte Streams are used to handle binary data (images, videos, PDFs, etc.) and also text files at the byte level.
+
+                        
+
+                        Main classes:
+                        	•	FileInputStream
+                        	•	FileOutputStream
