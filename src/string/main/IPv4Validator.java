@@ -1,0 +1,21 @@
+package string.main;
+
+public class IPv4Validator {
+    public boolean isValidIP(String ip) {
+        String[] parts = ip.split("\\.");
+
+        if (parts.length != 4) {
+            return false;
+        }
+
+        for (String part : parts) {
+            int num = Integer.parseInt(part);
+
+            if (num < 0 || num > 255) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
