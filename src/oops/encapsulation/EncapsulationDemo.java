@@ -56,10 +56,10 @@ public class EncapsulationDemo {
 
         account.checkBalance(pass);
 
-        System.out.println("\nTrying to Deposit 2000...");
+        System.out.println("\nTrying to Deposit 2000");
         account.deposit(2000, pass);
 
-        System.out.println("\nTrying to Withdraw 5000...");
+        System.out.println("\nTrying to Withdraw 5000");
         account.withdraw(5000, pass);
 
         System.out.println("\nFinal Balance Check:");

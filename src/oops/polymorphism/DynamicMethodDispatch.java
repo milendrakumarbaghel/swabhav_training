@@ -1,9 +1,9 @@
 package oops.polymorphism;
 
 class Animal {
-    void sound() {
-        System.out.println("Animal sound");
-    }
+//    void sound() {
+//        System.out.println("Animal sound");
+//    }
 }
 
 class Dog extends Animal {
@@ -22,9 +22,11 @@ public class DynamicMethodDispatch {
     public static void main(String[] args) {
 
         Animal a = new Dog();
-        a.sound();
+//        a.sound();
+//        Dog dog  = (Dog)a;
+//        dog.sound();
 
-        Animal b = new Cat();
-        b.sound();
+//        Animal b = new Cat();
+//        b.sound();
     }
 }
