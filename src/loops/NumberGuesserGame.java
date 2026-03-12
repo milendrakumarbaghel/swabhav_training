@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class NumberGuesserGame {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Random rand = new Random();
 
@@ -15,7 +15,6 @@ public class NumberGuesserGame {
             int guess;
             int maxAttempts = 5;
             boolean won = false;
-
             System.out.println("\nMaximum possible attempts:  " + maxAttempts);
 
             for (int i = 1; i <= maxAttempts; i++) {
