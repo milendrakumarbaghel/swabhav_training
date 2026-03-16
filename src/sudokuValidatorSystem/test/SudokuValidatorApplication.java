@@ -2,12 +2,13 @@ package sudokuValidatorSystem.test;
 
 import sudokuValidatorSystem.main.*;
 
+
 public class SudokuValidatorApplication {
-    static void main(String[] args) {
+    public static void main(String[] args) {
         try {
             SudokuValidatorMenu.start();
-        } catch (InvalidSudokuException e){
-            e.printStackTrace();
+        } catch (InvalidSudokuException e) {
+            System.out.println("Reason: " + e.getMessage());
         }
     }
 }

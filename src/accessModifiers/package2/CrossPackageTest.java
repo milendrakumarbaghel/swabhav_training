@@ -1,6 +1,6 @@
-package AccessModifiers.package2;
+package accessModifiers.package2;
 
-import AccessModifiers.package1.*;
+import accessModifiers.package1.*;
 
 public class CrossPackageTest extends Test {
     public static void main(String[] args) {

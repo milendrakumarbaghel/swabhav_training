@@ -1,4 +1,4 @@
-package AccessModifiers.package1;
+package accessModifiers.package1;
 
 public class Test {
     public void publicMethod() {
