@@ -3,74 +3,105 @@ package sudokuValidatorSystem.main;
 import java.util.Scanner;
 
 public class SudokuValidatorMenu {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void start() {
-        while(true) {
+        while (true) {
             System.out.println("\nSUDOKU VALIDATOR");
             System.out.println("1. Enter Sudoku Grid");
             System.out.println("2. Exit");
-            System.out.print("Choose option: ");
 
-            int choice = scanner.nextInt();
+            int choice = readInteger("Choose option: ");
 
-            switch(choice) {
+            switch (choice) {
                 case 1:
-                    validateSudoku();
+                    int[][] grid = readBoard();
+                    SudokuBoard board = new SudokuBoard(grid);
+                    validateSudoku(board);
                     break;
+
                 case 2:
                     System.out.println("Exiting...");
                     return;
+
                 default:
                     System.out.println("Invalid choice!");
             }
         }
     }
 
-    private static void validateSudoku() {
+    private static void validateSudoku(SudokuBoard board) {
         try {
-            int[][] sudokuBoard = readBoard();
-            SudokuBoard board = new SudokuBoard(sudokuBoard);
-
             new RowValidator(board).validate();
             new ColumnValidator(board).validate();
             new BoxValidator(board).validate();
 
-            System.out.println("\nSudoku is VALID");
+            System.out.println("Current board state is VALID.");
 
         } catch (InvalidSudokuException e) {
-
-            System.out.println("\nSudoku is INVALID");
+            System.out.println("Current board state is INVALID.");
             System.out.println("Reason: " + e.getMessage());
-
-        } catch (Exception e) {
-
-            System.out.println("Invalid input. Please enter numbers only.");
         }
     }
 
     private static int[][] readBoard() {
-        int[][] board = new int[9][9];
+        int[][] grid = new int[9][9];
+
         System.out.println("\nEnter Sudoku Board (values 1 - 9)");
+        System.out.println("Enter -1 as row to stop input.\n");
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                int value;
+        while (true) {
+            Utility.printBoard(grid);
+            int row = readInteger("Enter row (0-8) or -1 to finish: ");
 
-                while (true) {
-                    value = readInteger("Enter value for [" + i + "][" + j + "]: ");
+            if (row == -1) {
+                break;
+            }
 
-                    if (value >= 1 && value <= 9)
-                        break;
+            if (row < 0 || row > 8) {
+                System.out.println("Row must be between 0 and 8.");
+                continue;
+            }
 
-                    System.out.println("Number must be between 1 and 9.");
+            int col = readInteger("Enter column (0-8): ");
+
+            if (col < 0 || col > 8) {
+                System.out.println("Column must be between 0 and 8.");
+                continue;
+            }
+
+            if (grid[row][col] != 0) {
+                System.out.println("Cell already filled.");
+                continue;
+            }
+
+            int value;
+
+            while (true) {
+                value = readInteger("Enter value (1-9): ");
+                if (value >= 1 && value <= 9) {
+                    break;
                 }
 
-                board[i][j] = value;
+                System.out.println("Number must be between 1 and 9.");
+            }
+
+            grid[row][col] = value;
+            SudokuBoard tempBoard = new SudokuBoard(grid);
+
+            try {
+                validateSudoku(tempBoard);
+            } catch (Exception e) {
+                System.out.println("Move invalid: " + e.getMessage());
+                grid[row][col] = 0;
+                System.out.println("Move reverted.");
             }
         }
 
-        return board;
+        System.out.println("\nFinal Board:");
+        Utility.printBoard(grid);
+
+        return grid;
     }
 
     private static int readInteger(String message) {

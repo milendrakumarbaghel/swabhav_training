@@ -15,7 +15,12 @@ public class ColumnValidator extends SudokuValidator {
             Set<Integer> set = new HashSet<>();
 
             for (int row = 0; row < 9; row++) {
-                if (!set.add(grid[row][col])) {
+                int value = grid[row][col];
+                if(value==0){
+                    continue;
+                }
+
+                if (!set.add(value)) {
                     throw new InvalidSudokuException("Duplicate in Column " + (col + 1));
                 }
             }

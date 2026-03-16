@@ -12,21 +12,24 @@ public class SudokuBoard {
         return board;
     }
 
-    private void validateStructure(int[][] grid) throws InvalidSudokuException {
+    private void validateStructure(int[][] board) throws InvalidSudokuException {
+        if (board == null) {
+                throw new InvalidSudokuException("Board is null");
+        }
 
-        if (grid == null)
-            throw new InvalidSudokuException("Grid is null");
+        if (board.length != 9) {
+            throw new InvalidSudokuException("Board must have 9 rows");
+        }
 
-        if (grid.length != 9)
-            throw new InvalidSudokuException("Grid must have 9 rows");
-
-        for (int[] row : grid) {
-            if (row.length != 9)
-                throw new InvalidSudokuException("Grid must be 9x9");
+        for (int[] row : board) {
+            if (row.length != 9) {
+                throw new InvalidSudokuException("Board must be 9x9");
+            }
 
             for (int num : row) {
-                if (num < 1 || num > 9)
+                if (num < 0 || num > 9) {
                     throw new InvalidSudokuException("Numbers must be between 1 and 9");
+                }
             }
         }
     }

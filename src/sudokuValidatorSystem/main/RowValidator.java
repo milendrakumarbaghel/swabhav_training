@@ -9,14 +9,18 @@ public class RowValidator extends SudokuValidator {
     }
 
     public void validate() throws InvalidSudokuException {
-
         int[][] grid = board.getBoard();
 
         for (int i = 0; i < 9; i++) {
             Set<Integer> set = new HashSet<>();
 
             for (int j = 0; j < 9; j++) {
-                if (!set.add(grid[i][j])) {
+                int value = grid[i][j];
+                if(value == 0) {
+                    continue;
+                }
+
+                if (!set.add(value)) {
                     throw new InvalidSudokuException("Duplicate in Row " + (i + 1));
                 }
             }
