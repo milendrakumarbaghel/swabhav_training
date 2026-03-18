@@ -1,5 +1,7 @@
 package evaluationPractice;
 
+import java.util.Scanner;
+
 abstract class A{
     public void print() {
         System.out.println("hello");
@@ -69,6 +71,7 @@ class Dog extends Animal {
 
 public class Test {
     static void main() {
+        Scanner scanner = new Scanner(System.in);
 //        long l = 99999999999999999l;
 //        int i = (int) l;
 //        System.out.println(i);
@@ -88,10 +91,13 @@ public class Test {
 //        Animal animal = new Dog();
 //        animal.listen();
 
-        CopyConst copyConst = new CopyConst(1);
-        CopyConst copyConst1 = new CopyConst(copyConst);
+//        CopyConst copyConst = new CopyConst(1);
+//        CopyConst copyConst1 = new CopyConst(copyConst);
         //full copy
-        System.out.println(copyConst1.x);
+//        System.out.println(copyConst1.x);
+        Integer a = 10;
+        a = 20;
+        System.out.println(a);
     }
 
 
