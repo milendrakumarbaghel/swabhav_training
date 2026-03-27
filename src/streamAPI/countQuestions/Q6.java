@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Q6 {
     static void main(String[] args) {
-        List<Double> prices = Arrays.asList(1000.0, 400.0, 800.0);
+        List<Double> prices = Arrays.asList(1073.0, 404.0, 869.0);
 
         long count = prices.stream()
-                .map(p -> p * 0.8) // 20% discount
+                .map(p -> p * 0.8)
                 .filter(p -> p > 500)
                 .count();
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Q4 {
     static void main(String[] args) {
-        List<String> names = Arrays.asList("Amit", "Neha", "Raj");
+        List<String> names = Arrays.asList("Aman", "Neha", "Raj");
 
         names.stream()
                 .map(n -> "Mr./Ms. " + n)

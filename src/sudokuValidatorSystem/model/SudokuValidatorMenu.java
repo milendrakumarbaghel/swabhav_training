@@ -8,7 +8,7 @@ public class SudokuValidatorMenu {
     public static void start() {
         while (true) {
             System.out.println("\nSUDOKU VALIDATOR");
-            System.out.println("1. Enter Sudoku Grid");
+            System.out.println("1. Enter in Blank Sudoku Board");
             System.out.println("2. Play Sudoku Puzzle");
             System.out.println("3. Exit");
 
