@@ -1,4 +1,4 @@
-package sudokuValidatorSystem.main;
+package sudokuValidatorSystem.model;
 
 public class InvalidSudokuException extends RuntimeException {
     public InvalidSudokuException(String message) {

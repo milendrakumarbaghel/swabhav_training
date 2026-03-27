@@ -3,81 +3,63 @@ package assignments.numberGuesserGame;
 import java.util.Scanner;
 
 public class GameController {
-    private NumberGenerator generator;
-    private GuessEvaluator evaluator;
-    private InputValidator input;
-    private Scanner scanner;
-    private int maxAttempts;
+    private static final int MIN_NUMBER = 1;
+    private static final int MAX_NUMBER = 100;
+    private static final int MAX_ATTEMPTS = 5;
+
+    private final NumberGenerator generator;
+    private final GuessEvaluator evaluator;
+    private final InputValidator input;
 
     public GameController() {
-        System.out.println("Number Guesser game started");
-        this.scanner = new Scanner(System.in);
+        System.out.println("Number Guesser game started.");
+        Scanner scanner = new Scanner(System.in);
         this.input = new InputValidator(scanner);
-        this.generator = createNumberGenerator();
+        this.generator = new NumberGenerator(MIN_NUMBER, MAX_NUMBER);
         this.evaluator = new GuessEvaluator();
-        this.maxAttempts = input.readInteger("Enter no of maximum attempts: ");
-    }
-
-    private NumberGenerator createNumberGenerator() {
-        while (true) {
-            int min = input.readInteger("Enter minimum range of number: ");
-            int max = input.readInteger("Enter maximum range of number: ");
-
-            try {
-                return new NumberGenerator(min, max);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid range: " + e.getMessage());
-            }
-        }
+        System.out.println("Guess a number between 1 and 100.");
+        System.out.println("You have a maximum of 5 attempts.");
     }
 
     public void play() {
         String playAgain;
 
-        try {
-            do {
-                int target = generator.generateNumber();
-                boolean won = false;
-                System.out.println("\nMaximum possible attempts: " + maxAttempts);
+        do {
+            int target = generator.generateNumber();
+            boolean won = false;
 
-                for (int attempt = 1; attempt <= maxAttempts; attempt++) {
-                    int guess = input.readIntegerInRange(
-                            "Enter your guess (range->[" + generator.getMin() + "-" + generator.getMax() + "]): ",
-                            generator.getMin(),
-                            generator.getMax());
-                    String result = evaluator.evaluate(guess, target);
+            for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+                int guess = input.readIntegerInRange(
+                        "Attempt " + attempt + "/" + MAX_ATTEMPTS + " - Enter your guess (1-100): ",
+                        MIN_NUMBER,
+                        MAX_NUMBER
+                );
 
-                    switch (result) {
-                        case "Too Low":
-                            System.out.println("Too Low");
-                            break;
+                String result = evaluator.evaluate(guess, target);
 
-                        case "Too High":
-                            System.out.println("Too High");
-                            break;
-
-                        case "Correct Number Guessed":
-                            System.out.println("You won in attempt: " + attempt);
-                            won = true;
-                            break;
-                    }
-
-                    if (won) {
-                        break;
-                    }
-
-                    if (attempt == maxAttempts) {
-                        System.out.println("Game Over! Number was: " + target);
-                    }
+                if (result.equals(GuessEvaluator.TOO_LOW)) {
+                    System.out.println("Sorry, too low");
+                } else if (result.equals(GuessEvaluator.TOO_HIGH)) {
+                    System.out.println("Sorry, too high");
+                } else if (result.equals(GuessEvaluator.CORRECT_GUESS)) {
+                    System.out.println("Correct! You guessed the number in attempt " + attempt + ".");
+                    won = true;
+                } else {
+                    throw new IllegalStateException("Unexpected evaluation result: " + result);
                 }
 
-                playAgain = input.readYesNo("Play again (yes/no): ");
+                if (won) {
+                    break;
+                }
+            }
 
-            } while (playAgain.equalsIgnoreCase("yes"));
+            if (!won) {
+                System.out.println("Game over! The correct number was " + target + ".");
+            }
 
-            System.out.println("Thanks for playing");
-        } catch (IllegalStateException e) {
-            System.out.println("Game stopped due to input error: " + e.getMessage());
-        }
+            playAgain = input.readYesNo("Do you want to play again? (yes/no): ");
+        } while (playAgain.equalsIgnoreCase("yes"));
+
+        System.out.println("Thanks for playing.");
     }
 }

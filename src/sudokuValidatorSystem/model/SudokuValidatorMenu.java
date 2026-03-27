@@ -1,4 +1,4 @@
-package sudokuValidatorSystem.main;
+package sudokuValidatorSystem.model;
 
 import java.util.Scanner;
 

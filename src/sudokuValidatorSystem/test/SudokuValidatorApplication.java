@@ -1,6 +1,6 @@
 package sudokuValidatorSystem.test;
 
-import sudokuValidatorSystem.main.*;
+import sudokuValidatorSystem.model.*;
 
 
 public class SudokuValidatorApplication {

@@ -1,4 +1,4 @@
-package sudokuValidatorSystem.main;
+package sudokuValidatorSystem.model;
 
 public class SudokuBoard {
     private int[][] board;

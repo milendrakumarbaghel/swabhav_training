@@ -1,4 +1,4 @@
-package sudokuValidatorSystem.main;
+package sudokuValidatorSystem.model;
 
 public abstract class SudokuValidator {
     protected SudokuBoard board;

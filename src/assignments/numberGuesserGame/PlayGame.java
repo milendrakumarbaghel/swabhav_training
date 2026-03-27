@@ -5,8 +5,8 @@ public class PlayGame {
         try {
             GameController gameController = new GameController();
             gameController.play();
-        } catch (Exception e) {
-            System.out.println("Unable to start game: " + e.getMessage());
+        } catch (IllegalStateException e) {
+            System.out.println("Game stopped because input is unavailable: " + e.getMessage());
         }
     }
 }

@@ -1,4 +1,4 @@
-package sudokuValidatorSystem.main;
+package sudokuValidatorSystem.model;
 
 public enum DifficultyLevel {
     EASY("Easy", 25),
