@@ -5,11 +5,13 @@ public class Utility {
 
         System.out.println("\nCurrent Sudoku Board:\n");
 
-        // Print column indices
+        // Print column indices for users (1-9)
         System.out.print("    ");
-        for (int col = 0; col < 9; col++) {
+        for (int col = 1; col <= 9; col++) {
             System.out.print(col + " ");
-            if ((col + 1) % 3 == 0) System.out.print("  ");
+            if (col % 3 == 0) {
+                System.out.print("  ");
+            }
         }
         System.out.println();
 
@@ -19,8 +21,8 @@ public class Utility {
                 System.out.println("  +-------+-------+-------+");
             }
 
-            // Print row index
-            System.out.print(i + " | ");
+            // Print row index for users (1-9)
+            System.out.print((i + 1) + " | ");
 
             for (int j = 0; j < 9; j++) {
                 if (grid[i][j] == 0)

@@ -8,7 +8,7 @@ public class SudokuValidatorMenu {
     public static void start() {
         while (true) {
             System.out.println("\nSUDOKU VALIDATOR");
-            System.out.println("1. Enter in Blank Sudoku Board");
+            System.out.println("1. Fill and Validate Sudoku");
             System.out.println("2. Play Sudoku Puzzle");
             System.out.println("3. Exit");
 
@@ -86,24 +86,27 @@ public class SudokuValidatorMenu {
             }
 
             System.out.println("Enter -1 as row to stop this puzzle.");
-            int row = readInteger("Enter row (0-8): ");
+            int userRow = readInteger("Enter row (1-9): ");
 
-            if (row == -1) {
+            if (userRow == -1) {
                 System.out.println("Returning to difficulty menu...");
                 return;
             }
 
-            if (row < 0 || row > 8) {
-                System.out.println("Row must be between 0 and 8.");
+            if (userRow < 1 || userRow > 9) {
+                System.out.println("Row must be between 1 and 9.");
                 continue;
             }
 
-            int col = readInteger("Enter column (0-8): ");
+            int userCol = readInteger("Enter column (1-9): ");
 
-            if (col < 0 || col > 8) {
-                System.out.println("Column must be between 0 and 8.");
+            if (userCol < 1 || userCol > 9) {
+                System.out.println("Column must be between 1 and 9.");
                 continue;
             }
+
+            int row = userRow - 1;
+            int col = userCol - 1;
 
             if (fixedCells[row][col]) {
                 System.out.println("This cell is fixed and cannot be changed.");
@@ -177,23 +180,26 @@ public class SudokuValidatorMenu {
 
         while (true) {
             Utility.printBoard(grid);
-            int row = readInteger("Enter row (0-8) or -1 to finish: ");
+            int userRow = readInteger("Enter row (1-9) or -1 to finish: ");
 
-            if (row == -1) {
+            if (userRow == -1) {
                 break;
             }
 
-            if (row < 0 || row > 8) {
-                System.out.println("Row must be between 0 and 8.");
+            if (userRow < 1 || userRow > 9) {
+                System.out.println("Row must be between 1 and 9.");
                 continue;
             }
 
-            int col = readInteger("Enter column (0-8): ");
+            int userCol = readInteger("Enter column (1-9): ");
 
-            if (col < 0 || col > 8) {
-                System.out.println("Column must be between 0 and 8.");
+            if (userCol < 1 || userCol > 9) {
+                System.out.println("Column must be between 1 and 9.");
                 continue;
             }
+
+            int row = userRow - 1;
+            int col = userCol - 1;
 
             if (grid[row][col] != 0) {
                 System.out.println("Cell already filled.");
