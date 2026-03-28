@@ -16,14 +16,13 @@ public class SudokuValidatorMenu {
 
             switch (choice) {
                 case 1:
+                    int[][] grid = readBoard();
                     try {
-                        int[][] grid = readBoard();
                         SudokuBoard board = new SudokuBoard(grid);
                         validateSudoku(board);
                     } catch (InvalidSudokuException e) {
                         System.out.println("Current board state is INVALID.");
                         System.out.println("Reason: " + e.getMessage());
-                        System.out.println("Returning to main menu...");
                     }
                     break;
 
@@ -213,9 +212,16 @@ public class SudokuValidatorMenu {
             }
 
             grid[row][col] = value;
-            SudokuBoard tempBoard = new SudokuBoard(grid);
 
-            validateSudoku(tempBoard);
+            try {
+                // Validate incrementally; on failure, revert and continue the same game flow.
+                validateSudokuRules(new SudokuBoard(grid));
+                System.out.println("Move accepted.");
+            } catch (InvalidSudokuException e) {
+                grid[row][col] = 0;
+                System.out.println("Invalid move: " + e.getMessage());
+                System.out.println("Please try a different value.");
+            }
         }
 
         System.out.println("\nFinal Board:");

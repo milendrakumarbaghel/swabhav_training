@@ -11,7 +11,7 @@ public class SudokuPuzzleGenerator {
     }
 
     public static int[][] generatePuzzle(DifficultyLevel level) {
-        int[][] puzzle = PredefinedSudokuLibrary.getRandomSolvedGrid();
+        int[][] puzzle = PredefinedSudoku.getRandomSolvedGrid();
         removeRandomCells(puzzle, level.getEmptyCellCount());
         return puzzle;
     }

@@ -2,7 +2,7 @@ package sudokuValidatorSystem.model;
 
 import java.util.Random;
 
-public class PredefinedSudokuLibrary {
+public class PredefinedSudoku {
     private static final Random RANDOM = new Random();
 
     private static final int[][][] SOLVED_GRIDS = {
@@ -52,7 +52,7 @@ public class PredefinedSudokuLibrary {
             }
     };
 
-    private PredefinedSudokuLibrary() {
+    private PredefinedSudoku() {
     }
 
     public static int[][] getRandomSolvedGrid() {
