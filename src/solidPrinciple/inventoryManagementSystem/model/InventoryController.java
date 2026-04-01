@@ -4,26 +4,22 @@ import solidPrinciple.inventoryManagementSystem.model.notificationModel.EmailNot
 import solidPrinciple.inventoryManagementSystem.model.notificationModel.Notification;
 import solidPrinciple.inventoryManagementSystem.model.notificationModel.NotificationService;
 import solidPrinciple.inventoryManagementSystem.model.notificationModel.SMSNotification;
-import solidPrinciple.inventoryManagementSystem.model.productModel.NonPerishableProduct;
-import solidPrinciple.inventoryManagementSystem.model.productModel.PerishableProduct;
 import solidPrinciple.inventoryManagementSystem.model.productModel.Product;
-import solidPrinciple.inventoryManagementSystem.model.valuationModel.FIFOValuation;
-import solidPrinciple.inventoryManagementSystem.model.valuationModel.LIFOValuation;
-import solidPrinciple.inventoryManagementSystem.model.valuationModel.ValuationStrategy;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class InventoryController {
-    private InventoryService inventoryService;
-    private Scanner scanner;
-    private List<Product> products;
+    private final InventoryService inventoryService;
+    private final InputReader inputReader;
+    private final ProductOperations productOperations;
+    private final List<Product> products;
 
     public InventoryController() {
-        scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+        inputReader = new InputReader(scanner);
         ReOrderService reOrderService = new ReOrderService();
 
         List<Notification> notifier = Arrays.asList(
@@ -33,27 +29,40 @@ public class InventoryController {
         NotificationService notificationService = new NotificationService(notifier);
         inventoryService = new InventoryService(reOrderService, notificationService);
         products = new ArrayList<>();
+        productOperations = new ProductOperations(inventoryService, inputReader, products);
     }
 
     public void start() {
-        while(true) {
+        while (true) {
             showChoices();
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = inputReader.readIntInRange("Enter your choice: ", 1, 8);
 
             switch (choice) {
-                case 1: addProduct();
-                break;
-                case 2: removeProduct();
-                break;
-                case 3: calculateValue();
-                break;
-                case 4: showProducts();
-                break;
-                case 5: {
+                case 1:
+                    productOperations.addProduct();
+                    break;
+                case 2:
+                    productOperations.updateProduct();
+                    break;
+                case 3:
+                    productOperations.deleteProduct();
+                    break;
+                case 4:
+                    productOperations.addProductStock();
+                    break;
+                case 5:
+                    productOperations.removeProductStock();
+                    break;
+                case 6:
+                    calculateValue();
+                    break;
+                case 7:
+                    productOperations.showProducts();
+                    break;
+                case 8:
                     System.out.println("Exiting...");
+                    inputReader.close();
                     return;
-                }
                 default:
                     System.out.println("Invalid choice");
             }
@@ -61,94 +70,28 @@ public class InventoryController {
     }
 
     public void showChoices() {
-        System.out.println("Inventory Management System");
+        System.out.println("\nInventory Management System");
         System.out.println("1. Add Product");
-        System.out.println("2. Remove Stock");
-        System.out.println("3. Calculate Value of Products");
-        System.out.println("4. Show all Products");
-        System.out.println("5. Exit");
-        System.out.println("Enter your choice: ");
-    }
-
-    private void addProduct() {
-        System.out.print("Enter product name: ");
-        String name = scanner.next();
-
-        System.out.print("Enter quantity: ");
-        int qty = scanner.nextInt();
-
-        System.out.print("Enter price: ");
-        double price = scanner.nextDouble();
-
-        System.out.print("Enter reorder limit: ");
-        int reOrderQuantity = scanner.nextInt();
-
-        System.out.print("Is perishable? (yes/no): ");
-        String type = scanner.next();
-
-        Product product;
-
-        if (type.equalsIgnoreCase("yes")) {
-            LocalDate expiry = LocalDate.now().plusYears(1);
-            System.out.println("Expiry date: " + expiry);
-            product = new PerishableProduct(name, qty, price, expiry, reOrderQuantity);
-        } else {
-            product = new NonPerishableProduct(name, qty, price, reOrderQuantity);
-        }
-
-        products.add(product);
-        System.out.println("Product added successfully!");
-    }
-
-    private void removeProduct() {
-        Product product = findProduct();
-
-        if (product == null) return;
-
-        System.out.print("Enter quantity to remove: ");
-        int qty = scanner.nextInt();
-
-        inventoryService.removeStock(product, qty);
+        System.out.println("2. Update Product");
+        System.out.println("3. Delete Product");
+        System.out.println("4. Add Product Stock");
+        System.out.println("5. Remove Product Stock");
+        System.out.println("6. Calculate Inventory Value");
+        System.out.println("7. Show all Products");
+        System.out.println("8. Exit");
     }
 
     private void calculateValue() {
-        System.out.println("Choose Valuation Method:");
-        System.out.println("1. FIFO");
-        System.out.println("2. LIFO");
-
-        int choice = scanner.nextInt();
-
-        ValuationStrategy strategy;
-
-        if (choice == 1) {
-            strategy = new FIFOValuation();
-        } else {
-            strategy = new LIFOValuation();
+        if (products.isEmpty()) {
+            System.out.println("No products available to calculate valuation.");
+            return;
         }
 
-        double value = strategy.calculate(products);
-
-        System.out.println("Total inventory value: ₹" + value);
+        double perishableValue = inventoryService.calculatePerishableValueFIFO(products);
+        double nonPerishableValue = inventoryService.calculateNonPerishableValueLIFO(products);
+        double policyTotalValue = inventoryService.calculateTotalValueByPolicy(products);
+        System.out.println("Perishable products value (FIFO): ₹" +perishableValue);
+        System.out.println("Non-perishable products value (LIFO): ₹"+ nonPerishableValue);
+        System.out.println("Total (Perishable FIFO + Non-Perishable LIFO): ₹"+ policyTotalValue);
     }
-
-    private void showProducts() {
-        for (Product p : products) {
-            System.out.println(p.getName() + " | Qty: " + p.getQuantity());
-        }
-    }
-
-    private Product findProduct() {
-        System.out.print("Enter product name: ");
-        String name = scanner.next();
-
-        for (Product p : products) {
-            if (p.getName().equalsIgnoreCase(name)) {
-                return p;
-            }
-        }
-
-        System.out.println("Product not found!");
-        return null;
-    }
-
 }

@@ -3,7 +3,7 @@ package solidPrinciple.inventoryManagementSystem.test;
 import solidPrinciple.inventoryManagementSystem.model.InventoryController;
 
 public class InventoryManagementSystem {
-    static void main(String[] args) {
+    public static void main(String[] args) {
         InventoryController inventoryController = new InventoryController();
         inventoryController.start();
     }
