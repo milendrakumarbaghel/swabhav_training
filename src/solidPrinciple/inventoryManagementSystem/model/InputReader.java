@@ -92,6 +92,17 @@ public class InputReader {
         }
     }
 
+    public String readProductName(String prompt) {
+        while (true) {
+            String value = readNonEmptyString(prompt);
+            if (!value.matches("[A-Za-z][A-Za-z ]*")) {
+                System.out.println("Product name must contain only letters and spaces, and start with a letter.");
+                continue;
+            }
+            return value;
+        }
+    }
+
     public String readYesNo(String prompt) {
         while (true) {
             String input = readNonEmptyString(prompt).toLowerCase(Locale.ROOT);

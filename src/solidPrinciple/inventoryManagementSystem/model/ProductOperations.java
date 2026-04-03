@@ -9,17 +9,22 @@ import java.util.List;
 
 public class ProductOperations {
     private final InventoryService inventoryService;
+    private final ProductCatalogService productCatalogService;
     private final InputReader inputReader;
     private final List<Product> products;
 
-    public ProductOperations(InventoryService inventoryService, InputReader inputReader, List<Product> products) {
+    public ProductOperations(InventoryService inventoryService,
+                             ProductCatalogService productCatalogService,
+                             InputReader inputReader,
+                             List<Product> products) {
         this.inventoryService = inventoryService;
+        this.productCatalogService = productCatalogService;
         this.inputReader = inputReader;
         this.products = products;
     }
 
     public void addProduct() {
-        String name = inputReader.readNonEmptyString("Enter product name: ");
+        String name = inputReader.readProductName("Enter product name: ");
         if (findProductByName(name) != null) {
             System.out.println("Product with this name already exists. Use 'Add Product Stock' instead.");
             return;
@@ -27,7 +32,7 @@ public class ProductOperations {
 
         int qty = inputReader.readPositiveInt("Enter quantity: ");
         double price = inputReader.readPositiveDouble("Enter price: ");
-        int reOrderQuantity = inputReader.readNonNegativeInt("Enter reorder limit: ");
+        int reOrderQuantity = inputReader.readIntInRange("Enter reorder limit: ", 0, qty);
         String type = inputReader.readYesNo("Is perishable? (yes/no): ");
 
         try {
@@ -39,7 +44,7 @@ public class ProductOperations {
                 product = new NonPerishableProduct(name, qty, price, reOrderQuantity);
             }
 
-            inventoryService.addProduct(products, product);
+            productCatalogService.addProduct(products, product);
             System.out.println("Product added successfully!");
         } catch (IllegalArgumentException e) {
             System.out.println("Unable to add product: " + e.getMessage());
@@ -58,16 +63,16 @@ public class ProductOperations {
         }
 
         double newPrice = inputReader.readPositiveDouble("Enter new price: ");
-        int newReorderLimit = inputReader.readNonNegativeInt("Enter new reorder limit: ");
+        int newReorderLimit = inputReader.readIntInRange(
+                "Enter new reorder limit: ",
+                0,
+                product.getQuantity()
+        );
 
         try {
             product.setPrice(newPrice);
             product.setReorderLimit(newReorderLimit);
-
-            if (product instanceof PerishableProduct) {
-                LocalDate newExpiry = inputReader.readFutureDate("Enter new expiry date (yyyy-mm-dd): ");
-                ((PerishableProduct) product).setExpiryDate(newExpiry);
-            }
+            product.updateTypeSpecificDetails(inputReader);
 
             System.out.println("Product updated successfully!");
         } catch (IllegalArgumentException e) {
@@ -87,7 +92,7 @@ public class ProductOperations {
         }
 
         try {
-            inventoryService.deleteProduct(products, product);
+            productCatalogService.deleteProduct(products, product);
             System.out.println("Product deleted successfully!");
         } catch (IllegalArgumentException e) {
             System.out.println("Unable to delete product: " + e.getMessage());
@@ -141,25 +146,19 @@ public class ProductOperations {
         }
 
         for (Product p : products) {
-            String type = p instanceof PerishableProduct ? "Perishable" : "Non-Perishable";
-            String extra = "";
-            if (p instanceof PerishableProduct) {
-                extra = " | Expiry: " + ((PerishableProduct) p).getExpiryDate();
-            }
-
             System.out.println(
                     p.getName() +
-                            " | Type: " + type +
+                            " | Type: " + p.getTypeName() +
                             " | Qty: " + p.getQuantity() +
                             " | Price: " + p.getPrice() +
                             " | Reorder Limit: " + p.getReorderLimit() +
-                            extra
+                            p.getDisplayExtra()
             );
         }
     }
 
     private Product findProduct() {
-        String name = inputReader.readNonEmptyString("Enter product name: ");
+        String name = inputReader.readProductName("Enter product name: ");
         Product product = findProductByName(name);
 
         if (product == null) {

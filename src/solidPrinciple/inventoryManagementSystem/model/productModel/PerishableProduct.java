@@ -1,5 +1,7 @@
 package solidPrinciple.inventoryManagementSystem.model.productModel;
 
+import solidPrinciple.inventoryManagementSystem.model.InputReader;
+
 import java.time.LocalDate;
 
 public class PerishableProduct extends Product {
@@ -28,5 +30,21 @@ public class PerishableProduct extends Product {
             throw new IllegalArgumentException("Expiry date must be a future date");
         }
         this.expiryDate = expiryDate;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "Perishable";
+    }
+
+    @Override
+    public String getDisplayExtra() {
+        return " | Expiry: " + expiryDate;
+    }
+
+    @Override
+    public void updateTypeSpecificDetails(InputReader inputReader) {
+        LocalDate newExpiry = inputReader.readFutureDate("Enter new expiry date (yyyy-mm-dd): ");
+        setExpiryDate(newExpiry);
     }
 }

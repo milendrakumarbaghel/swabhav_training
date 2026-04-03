@@ -1,5 +1,7 @@
 package solidPrinciple.inventoryManagementSystem.model.productModel;
 
+import solidPrinciple.inventoryManagementSystem.model.InputReader;
+
 public abstract class Product {
     protected String name;
     protected int quantity;
@@ -57,7 +59,20 @@ public abstract class Product {
         if (reorderLimit < 0) {
             throw new IllegalArgumentException("Reorder limit cannot be negative");
         }
+        if (reorderLimit > quantity) {
+            throw new IllegalArgumentException("Reorder limit can't be greater than quantity");
+        }
         this.reorderLimit = reorderLimit;
+    }
+
+    public abstract String getTypeName();
+
+    public String getDisplayExtra() {
+        return "";
+    }
+
+    public void updateTypeSpecificDetails(InputReader inputReader) {
+        // Default for product types that do not have additional editable fields.
     }
 
     public void addQuantity(int qty) {

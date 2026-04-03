@@ -1,35 +1,26 @@
 package solidPrinciple.inventoryManagementSystem.model;
 
-import solidPrinciple.inventoryManagementSystem.model.notificationModel.EmailNotification;
-import solidPrinciple.inventoryManagementSystem.model.notificationModel.Notification;
-import solidPrinciple.inventoryManagementSystem.model.notificationModel.NotificationService;
-import solidPrinciple.inventoryManagementSystem.model.notificationModel.SMSNotification;
 import solidPrinciple.inventoryManagementSystem.model.productModel.Product;
+import solidPrinciple.inventoryManagementSystem.model.valuationModel.InventoryValuationService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Map;
+import java.util.Objects;
 
 public class InventoryController {
-    private final InventoryService inventoryService;
+    private final InventoryValuationService valuationService;
     private final InputReader inputReader;
     private final ProductOperations productOperations;
     private final List<Product> products;
 
-    public InventoryController() {
-        Scanner scanner = new Scanner(System.in);
-        inputReader = new InputReader(scanner);
-        ReOrderService reOrderService = new ReOrderService();
-
-        List<Notification> notifier = Arrays.asList(
-                new SMSNotification(),
-                new EmailNotification()
-        );
-        NotificationService notificationService = new NotificationService(notifier);
-        inventoryService = new InventoryService(reOrderService, notificationService);
-        products = new ArrayList<>();
-        productOperations = new ProductOperations(inventoryService, inputReader, products);
+    public InventoryController(InputReader inputReader,
+                               ProductOperations productOperations,
+                               InventoryValuationService valuationService,
+                               List<Product> products) {
+        this.inputReader = Objects.requireNonNull(inputReader, "InputReader cannot be null");
+        this.productOperations = Objects.requireNonNull(productOperations, "ProductOperations cannot be null");
+        this.valuationService = Objects.requireNonNull(valuationService, "ValuationService cannot be null");
+        this.products = Objects.requireNonNull(products, "Products cannot be null");
     }
 
     public void start() {
@@ -87,11 +78,10 @@ public class InventoryController {
             return;
         }
 
-        double perishableValue = inventoryService.calculatePerishableValueFIFO(products);
-        double nonPerishableValue = inventoryService.calculateNonPerishableValueLIFO(products);
-        double policyTotalValue = inventoryService.calculateTotalValueByPolicy(products);
-        System.out.println("Perishable products value (FIFO): ₹" +perishableValue);
-        System.out.println("Non-perishable products value (LIFO): ₹"+ nonPerishableValue);
-        System.out.println("Total (Perishable FIFO + Non-Perishable LIFO): ₹"+ policyTotalValue);
+        Map<String, Double> policyValues = valuationService.calculateByPolicy(products);
+        for (Map.Entry<String, Double> entry : policyValues.entrySet()) {
+            System.out.println(entry.getKey() + ": ₹" + entry.getValue());
+        }
+        System.out.println("Total (Perishable FIFO + Non-Perishable LIFO): ₹" + valuationService.calculateTotal(products));
     }
 }
