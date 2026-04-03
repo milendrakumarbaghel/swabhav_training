@@ -19,7 +19,7 @@ public class ProductCatalogService {
         Objects.requireNonNull(products, "Product list cannot be null");
         Objects.requireNonNull(product, "Product cannot be null");
         if (!products.remove(product)) {
-            throw new IllegalArgumentException("Product not found in inventory");
+            throw new ProductNotFoundException("Product not found in inventory");
         }
     }
 
