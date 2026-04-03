@@ -36,6 +36,16 @@ public abstract class Product {
         return name;
     }
 
+    public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Product name cannot be empty");
+        }
+        if (!name.trim().matches("[A-Za-z][A-Za-z ]*")) {
+            throw new IllegalArgumentException("Product name must contain only letters and spaces, and start with a letter");
+        }
+        this.name = name.trim();
+    }
+
     public int getQuantity() {
         return quantity;
     }

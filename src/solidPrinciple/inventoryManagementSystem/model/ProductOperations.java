@@ -62,21 +62,47 @@ public class ProductOperations {
             return;
         }
 
-        double newPrice = inputReader.readPositiveDouble("Enter new price: ");
-        int newReorderLimit = inputReader.readIntInRange(
-                "Enter new reorder limit: ",
-                0,
-                product.getQuantity()
-        );
+        while (true) {
+            System.out.println("\nUpdate Product Options");
+            System.out.println("1. Update Name");
+            System.out.println("2. Update Price");
+            System.out.println("3. Update Reorder Limit");
+            System.out.println("4. Done");
 
-        try {
-            product.setPrice(newPrice);
-            product.setReorderLimit(newReorderLimit);
-            product.updateTypeSpecificDetails(inputReader);
-
-            System.out.println("Product updated successfully!");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Unable to update product: " + e.getMessage());
+            int option = inputReader.readIntInRange("Enter your option: ", 1, 5);
+            try {
+                switch (option) {
+                    case 1:
+                        String newName = inputReader.readProductName("Enter new product name: ");
+                        if (findProductByName(newName) != null && !product.getName().equalsIgnoreCase(newName)) {
+                            System.out.println("Product with this name already exists.");
+                            break;
+                        }
+                        product.setName(newName);
+                        System.out.println("Product name updated successfully!");
+                        break;
+                    case 2:
+                        double newPrice = inputReader.readPositiveDouble("Enter new price: ");
+                        product.setPrice(newPrice);
+                        System.out.println("Product price updated successfully!");
+                        break;
+                    case 3:
+                        int newReorderLimit = inputReader.readIntInRange(
+                                "Enter new reorder limit: ",
+                                0,
+                                product.getQuantity()
+                        );
+                        product.setReorderLimit(newReorderLimit);
+                        System.out.println("Product reorder limit updated successfully!");
+                        break;
+                    case 4:
+                        return;
+                    default:
+                        System.out.println("Invalid option");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Unable to update product: " + e.getMessage());
+            }
         }
     }
 
