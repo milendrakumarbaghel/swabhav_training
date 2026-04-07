@@ -1,4 +1,9 @@
-package tictactoe.srp_ocp_refactor;
+package tictactoe.tictactoe_facade.model.player;
+
+import tictactoe.tictactoe_facade.model.Board;
+import tictactoe.tictactoe_facade.model.exception.InvalidInputException;
+import tictactoe.tictactoe_facade.model.exception.InvalidMoveException;
+import tictactoe.tictactoe_facade.model.Mark;
 
 import java.util.Random;
 

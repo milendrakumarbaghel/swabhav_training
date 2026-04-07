@@ -1,4 +1,7 @@
-package tictactoe.srp_ocp_refactor;
+package tictactoe.tictactoe_facade.model;
+
+import tictactoe.tictactoe_facade.model.player.HumanPlayer;
+import tictactoe.tictactoe_facade.model.player.Player;
 
 public class Game {
     private final Board board;

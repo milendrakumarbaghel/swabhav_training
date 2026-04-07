@@ -1,4 +1,4 @@
-package tictactoe.srp_ocp_refactor;
+package tictactoe.tictactoe_facade.model;
 
 public enum Mark {
     X("X"),
