@@ -1,14 +1,14 @@
 package tictactoe.tictactoe_facade.model.facade;
 
-import tictactoe.tictactoe_facade.model.exception.InvalidInputException;
-
-import java.util.Scanner;
+import tictactoe.tictactoe_facade.model.io.InputReader;
+import tictactoe.tictactoe_facade.model.validation.InputValidator;
+import tictactoe.tictactoe_facade.model.validation.GameValidator;
 
 public class TicTacToeMenu {
-    private final Scanner scanner;
+    private final InputReader inputReader;
 
-    public TicTacToeMenu(Scanner scanner) {
-        this.scanner = scanner;
+    public TicTacToeMenu(InputReader inputReader) {
+        this.inputReader = inputReader;
     }
 
     public int readMenuChoice() {
@@ -18,36 +18,19 @@ public class TicTacToeMenu {
         System.out.println("3. Exit");
         System.out.print("Choose option: ");
 
-        String input = scanner.nextLine();
-
-        int choice;
-        try {
-            choice = Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            throw new InvalidInputException("Please enter a valid number.");
-        }
-
-        if (choice < 1 || choice > 3) {
-            throw new InvalidInputException("Menu choice must be 1, 2, or 3.");
-        }
+        String input = inputReader.readLine();
+        int choice = InputValidator.validateInteger(input, "Choice");
+        InputValidator.validateMenuChoice(choice, 1, 3);
 
         return choice;
     }
 
     public int readBoardSize() {
         System.out.print("Enter board size (e.g., 3): ");
-        String input = scanner.nextLine();
+        String input = inputReader.readLine();
 
-        int size;
-        try {
-            size = Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            throw new InvalidInputException("Board size must be a number.");
-        }
-
-        if (size <= 0) {
-            throw new InvalidInputException("Board size must be greater than 0.");
-        }
+        int size = InputValidator.validateInteger(input, "Board size");
+        GameValidator.validateBoardSize(size);
 
         return size;
     }
@@ -60,4 +43,3 @@ public class TicTacToeMenu {
         System.out.println("Exiting game");
     }
 }
-

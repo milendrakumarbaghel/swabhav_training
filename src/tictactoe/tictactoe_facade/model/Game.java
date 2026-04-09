@@ -1,6 +1,5 @@
 package tictactoe.tictactoe_facade.model;
 
-import tictactoe.tictactoe_facade.model.player.HumanPlayer;
 import tictactoe.tictactoe_facade.model.player.Player;
 
 public class Game {
@@ -19,17 +18,13 @@ public class Game {
     public void play() {
         while (true) {
             board.printBoard();
-            if(currentPlayer instanceof HumanPlayer) System.out.println("\nHuman Player " + currentPlayer.getMark() + "'s turn->");
-            else System.out.println("\nComputer Player " + currentPlayer.getMark() + "'s turn->");
+            System.out.println("\n" + currentPlayer.getDisplayName() + " Player " + currentPlayer.getMark() + "'s turn->");
 
             currentPlayer.makeMove(board);
 
             if (checkWinner()) {
                 board.printBoard();
-                if(currentPlayer instanceof HumanPlayer)
-                    System.out.println("\nHuman Player " + currentPlayer.getMark() + " won the game");
-                else
-                    System.out.println("\nComputer Player" + currentPlayer.getMark() + " won the game");
+                System.out.println("\n" + currentPlayer.getDisplayName() + " Player " + currentPlayer.getMark() + " won the game");
                 break;
             }
 

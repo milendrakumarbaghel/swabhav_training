@@ -39,5 +39,10 @@ public class ComputerPlayer implements Player {
         return mark;
     }
 
+    @Override
+    public String getDisplayName() {
+        return "Computer";
+    }
+
 
 }

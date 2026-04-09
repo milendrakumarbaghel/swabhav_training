@@ -73,7 +73,6 @@ public class Board {
             if (i < size - 1) {
                 for (int k = 0; k < size; k++) {
                     System.out.print("-----");
-//                    System.out.print("____");
                 }
                 System.out.println();
             }

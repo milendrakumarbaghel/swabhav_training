@@ -1,19 +1,21 @@
 package tictactoe.tictactoe_facade.model.player;
 
 import tictactoe.tictactoe_facade.model.Board;
+import tictactoe.tictactoe_facade.model.Mark;
 import tictactoe.tictactoe_facade.model.exception.InvalidInputException;
 import tictactoe.tictactoe_facade.model.exception.InvalidMoveException;
-import tictactoe.tictactoe_facade.model.Mark;
-
-import java.util.Scanner;
+import tictactoe.tictactoe_facade.model.io.InputReader;
+import tictactoe.tictactoe_facade.model.validation.CellCoordinateMapper;
+import tictactoe.tictactoe_facade.model.validation.GameValidator;
+import tictactoe.tictactoe_facade.model.validation.InputValidator;
 
 public class HumanPlayer implements Player {
     private final Mark mark;
-    private final Scanner scanner;
+    private final InputReader inputReader;
 
-    public HumanPlayer(Mark mark, Scanner scanner) {
+    public HumanPlayer(Mark mark, InputReader inputReader) {
         this.mark = mark;
-        this.scanner = scanner;
+        this.inputReader = inputReader;
     }
 
     @Override
@@ -21,28 +23,19 @@ public class HumanPlayer implements Player {
         while (true) {
             try {
                 int size = board.getSize();
-//                System.out.print("Enter row: ");
-//                int row = isValidRowCol(size);
-//                int row = readInt();
-//                System.out.print("Enter col: ");
-//                int col = isValidRowCol(size);
-//                int col = readInt();
-
                 System.out.println("Enter cell: ");
-                int cell= readInt();
+                String input = inputReader.readLine();
+                int cell = InputValidator.validateInteger(input, "Cell");
+                GameValidator.validateCellRange(cell, size);
 
-                int[] position = getPosition(cell, size);
-
+                int[] position = CellCoordinateMapper.cellToCoordinates(cell, size);
                 board.placeMark(position[0], position[1], mark);
                 break;
             } catch (InvalidMoveException | InvalidInputException e) {
                 System.out.println(e.getMessage());
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println("An unexpected error occurred: " + e.getMessage());
             }
-
-//            System.out.println("Invalid move, try again.");
-
         }
     }
 
@@ -51,36 +44,8 @@ public class HumanPlayer implements Player {
         return mark;
     }
 
-    public int isValidRowCol(int size) {
-        while(true){
-            while (!scanner.hasNextInt()) {
-                System.out.print("Invalid input. Enter numeric value: ");
-                scanner.next();
-            }
-
-            int value = scanner.nextInt();
-
-            if (value >= 1 && value < size) {
-                return value;
-            }
-
-            System.out.println("Invalid choice, Enter valid row/col number (0-"+size+")");
-        }
-    }
-
-    private int readInt() {
-        String input = scanner.nextLine();
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            throw new InvalidInputException("Please enter a valid Cell.");
-        }
-    }
-
-    public int[] getPosition(int cell, int size) {
-        int row = (cell - 1) / size;
-        int col = (cell - 1) % size;
-
-        return new int[]{row, col};
+    @Override
+    public String getDisplayName() {
+        return "Human";
     }
 }
