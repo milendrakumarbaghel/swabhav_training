@@ -7,5 +7,4 @@ public class TicTacToeAppTest {
         StartGame startGame = new StartGame();
         startGame.start();
     }
-
 }
