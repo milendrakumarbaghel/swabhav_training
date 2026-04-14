@@ -55,8 +55,6 @@ Console Tic-Tac-Toe application implemented with the GoF Facade pattern.
 
 ## Class Diagram
 
-![TicTacToe Game Class Diagram](model/images/Tic%20Tac%20Toe%20Game-Class%20Diagram.png)
-
 ```mermaid
 classDiagram
     class TicTacToeAppTest {
