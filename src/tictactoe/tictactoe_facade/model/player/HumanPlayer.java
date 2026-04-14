@@ -49,3 +49,4 @@ public class HumanPlayer implements Player {
         return "Human";
     }
 }
+
