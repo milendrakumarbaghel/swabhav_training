@@ -26,37 +26,32 @@ Console Tic-Tac-Toe application implemented with the GoF Facade pattern.
 
 | Package | Classes | Role |
 | --- | --- | --- |
-| `model.user` | `User`, `BaseUser`, `Admin`, `Customer`, `DeliveryAgent`, `UserFactory`, `TriFunction` | User domain models, inheritance hierarchy, and factory |
-| `model.order` | `MenuComponent`, `MenuItem`, `MenuCategory`, `Cart`, `Order` | Menu composite pattern, shopping cart, and orders |
-| `model.payment` | `PaymentStrategy`, `CashPayment`, `UpiPayment`, `Payment`, `PaymentFactory`, `Discount` | Strategy pattern for payments and factory |
-| `model.enums` | `DeliveryAgentStatus`, `OrderStatus`, `PaymentMode` | Status and type enumerations |
-| `exception` | `EmptyCartException`, `RestaurantClosedException`, `UserNotFoundException` | Custom checked exceptions |
-| `observer` | `Observer`, `AdminObserver`, `CustomerObserver`, `DeliveryAgentObserver`, `EventManager` | Observer pattern for event notifications |
-| `service` | `BaseService`, `AdminService`, `CustomerService`, `DeliveryAgentService`, `CartService`, `OrderService`, `DiscountService`, `InvoiceService` | Business logic layer |
-| `panel` | `AdminPanel`, `CustomerPanel`, `DeliveryAgentPanel` | Console UI and presentation layer |
-| `facade` | `FoodOrderingFacade` | Facade pattern and single entry point |
-| `util` | `IdGenerator` | Auto-incrementing ID utility |
+| `model` | `StartGame`, `Game`, `Board`, `Mark` | Core game flow, board state, and mark type |
+| `model.facade` | `TicTacToeFacade`, `TicTacToeMenu` | Facade API and menu/presentation input flow |
+| `model.player` | `Player`, `HumanPlayer`, `ComputerPlayer` | Player abstraction and move behaviors |
+| `model.io` | `InputReader` | Console input wrapper |
+| `model.validation` | `InputValidator`, `GameValidator`, `CellCoordinateMapper` | Input parsing, rule validation, and cell-to-coordinate mapping |
+| `model.exception` | `InvalidInputException`, `InvalidMoveException` | Domain-specific runtime exceptions |
+| `model.images` | `Tic Tac Toe Game-Class Diagram.png` | Class diagram asset used in README |
+| `test` | `TicTacToeAppTest` | Application launcher (`main`) |
 
 ## Design Patterns Used
 
 | Pattern | Where | Description |
 | --- | --- | --- |
-| Singleton | `Admin` | Double-checked locking ensures one admin instance |
-| Factory | `UserFactory`, `PaymentFactory` | Creates `User` / `PaymentStrategy` from type string |
-| Strategy | `PaymentStrategy` <- `CashPayment`, `UpiPayment` | Swappable payment algorithms |
-| Composite | `MenuComponent` <- `MenuItem`, `MenuCategory` | Tree structure for nested menu categories |
-| Observer | `Observer` <- `AdminObserver`, `CustomerObserver`, `DeliveryAgentObserver` + `EventManager` | Event-driven order status notifications |
-| Facade | `FoodOrderingFacade` | Simplifies system startup and panel routing |
+| Facade | `TicTacToeFacade` | Exposes high-level game-start APIs and hides object wiring (`Board`, `Game`, players) |
+| Strategy (behavior by interface) | `Player` <- `HumanPlayer`, `ComputerPlayer` | `Game` works with `Player` abstraction while move behavior varies by concrete player |
+| Polymorphism | `Game` + `Player` hierarchy | Turn handling and winner flow rely on common player contract instead of concrete checks |
+| Layered Validation Utility | `InputValidator`, `GameValidator`, `CellCoordinateMapper` | Separates validation/mapping from gameplay and UI orchestration |
 
 ## Key Relationship Legend
-
 | Arrow | Meaning |
-| --- | --- |
-| `--->` solid line | Association - field reference |
-| `---|>` solid with triangle | Inheritance (`extends`) |
-| `- -|>` dashed with triangle | Implementation (`implements`) |
-| `- -->` dashed line | Dependency - creates or uses transiently |
-| `<>---` diamond | Aggregation - has many collection |
+|---|---|
+| `──▶` solid line | **Association** — field reference |
+| `──▷` solid with triangle | **Inheritance** (`extends`) |
+| `╌╌▷` dashed with triangle | **Implementation** (`implements`) |
+| `╌╌▶` dashed line | **Dependency** — creates or uses transiently |
+| `◇──` diamond | **Aggregation** — "has many" collection |
 
 ## Class Diagram
 
